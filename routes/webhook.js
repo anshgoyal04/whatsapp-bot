@@ -33,7 +33,22 @@ router.post("/", async (req, res) => {
 
     console.log("FULL WEBHOOK:");
     console.log(JSON.stringify(req.body, null, 2));
+    const rawLogsPath = path.join(
+  __dirname,
+  "../logs/raw-webhooks.txt"
+);
 
+// Separator
+fs.appendFileSync(
+  rawLogsPath,
+  "\n\n====================\n\n"
+);
+
+// Save full webhook payload
+fs.appendFileSync(
+  rawLogsPath,
+  JSON.stringify(req.body, null, 2)
+);
     const message =
       req.body.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
 
