@@ -20,6 +20,20 @@ app.use("/send-template", sendTemplateRoute);
 app.get("/", (req, res) => {
   res.send("WhatsApp Bot Running");
 });
+app.get("/clear-messages", (req, res) => {
+
+  const messagesFilePath = path.join(
+    __dirname,
+    "data/messages.json"
+  );
+
+  fs.writeFileSync(
+    messagesFilePath,
+    "[]"
+  );
+
+  res.send("Messages cleared");
+});
 app.get("/messages", (req, res) => {
 
   const messagesFilePath = path.join(
