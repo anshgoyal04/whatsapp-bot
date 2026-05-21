@@ -64,7 +64,18 @@ fs.appendFileSync(
   __dirname,
   "../data/users.json"
 );
+const blockedNumbers = [
+  "917387003336"
+];
 
+if (blockedNumbers.includes(from)) {
+
+  console.log(
+    "Blocked number ignored"
+  );
+
+  return res.sendStatus(200);
+}
 let users = [];
 
 if (fs.existsSync(usersFilePath)) {
