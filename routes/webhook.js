@@ -60,7 +60,96 @@ fs.appendFileSync(
 
     const from = message.from;
     const text = message.text?.body || "";
+    const usersFilePath = path.join(
+  __dirname,
+  "../data/users.json"
+);
 
+let users = [];
+
+if (fs.existsSync(usersFilePath)) {
+  users = JSON.parse(
+    fs.readFileSync(usersFilePath)
+  );
+}
+
+let user = users.find(
+  (u) => u.number === from
+);
+
+if (!user) {
+
+  user = {
+    number: from,
+    welcomed: false,
+    selectedOptions: []
+  };
+
+  users.push(user);
+}
+
+let reply = "";
+
+// FIRST MESSAGE ONLY
+if (!user.welcomed) {
+
+  reply =
+    "Welcome to Navnoor ✨\n\nHow can we help you today?\n\n1️⃣ Products\n2️⃣ Shipping\n3️⃣ Support";
+
+  user.welcomed = true;
+}
+
+// OPTION 1
+else if (
+  text === "1" &&
+  !user.selectedOptions.includes("1")
+) {
+
+  reply =
+    "Please visit our product catalog ✨";
+
+  user.selectedOptions.push("1");
+}
+
+// OPTION 2
+else if (
+  text === "2" &&
+  !user.selectedOptions.includes("2")
+) {
+
+  reply =
+    "Shipping usually takes 3-5 business days 🚚";
+
+  user.selectedOptions.push("2");
+}
+
+// OPTION 3
+else if (
+  text === "3" &&
+  !user.selectedOptions.includes("3")
+) {
+
+  reply =
+    "Our support team will contact you shortly ❤️";
+
+  user.selectedOptions.push("3");
+}
+
+// SAVE USERS
+fs.writeFileSync(
+  usersFilePath,
+  JSON.stringify(users, null, 2)
+);
+
+// STOP IF NO REPLY
+if (!reply) {
+
+  console.log(
+    "No reply needed"
+  );
+
+  return res.sendStatus(200);
+}
     console.log("Incoming:", text);
 
     // READ OLD DATA
@@ -91,23 +180,23 @@ fs.appendFileSync(
     console.log("Incoming message saved");
 
     // AUTO REPLY
-    let reply = "";
+    // let reply = "";
 
-    if (text === "1") {
-      reply = "Please visit our product catalog ✨";
-    }
-    else if (text === "2") {
-      reply =
-        "Shipping usually takes 3-5 business days 🚚";
-    }
-    else if (text === "3") {
-      reply =
-        "Our support team will contact you shortly ❤️";
-    }
-    else {
-      reply =
-        "Welcome to Navnoor ✨\n\nHow can we help you today?\n\n1️⃣ Products\n2️⃣ Shipping\n3️⃣ Support";
-    }
+    // if (text === "1") {
+    //   reply = "Please visit our product catalog ✨";
+    // }
+    // else if (text === "2") {
+    //   reply =
+    //     "Shipping usually takes 3-5 business days 🚚";
+    // }
+    // else if (text === "3") {
+    //   reply =
+    //     "Our support team will contact you shortly ❤️";
+    // }
+    // else {
+    //   reply =
+    //     "Welcome to Navnoor ✨\n\nHow can we help you today?\n\n1️⃣ Products\n2️⃣ Shipping\n3️⃣ Support";
+    // }
 
     // SEND WHATSAPP MESSAGE
     const response = await sendWhatsAppMessage(
