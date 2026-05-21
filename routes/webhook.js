@@ -72,11 +72,6 @@ router.post("/", async (req, res) => {
         ];
 
         if (blockedNumbers.includes(from)) {
-
-            console.log(
-                "Blocked number ignored"
-            );
-
             return res.sendStatus(200);
         }
         
