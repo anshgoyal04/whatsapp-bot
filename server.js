@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const express = require("express");
 require("dotenv").config();
 
@@ -18,7 +20,24 @@ app.use("/send-template", sendTemplateRoute);
 app.get("/", (req, res) => {
   res.send("WhatsApp Bot Running");
 });
+app.get("/messages", (req, res) => {
 
+  const messagesFilePath = path.join(
+    __dirname,
+    "data/messages.json"
+  );
+
+  if (!fs.existsSync(messagesFilePath)) {
+    return res.json([]);
+  }
+
+  const data = fs.readFileSync(
+    messagesFilePath,
+    "utf8"
+  );
+
+  res.json(JSON.parse(data || "[]"));
+});
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
