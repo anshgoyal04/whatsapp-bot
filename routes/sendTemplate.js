@@ -30,13 +30,28 @@ router.get("/", async (req, res) => {
 
         template: {
 
-          // CHANGE THIS
-          name: "my_first_temp",
+  name: "your_template_name",
 
-          language: {
-            code: "en"
+  language: {
+    code: "en"
+  },
+
+  components: [
+    {
+      type: "header",
+
+      parameters: [
+        {
+          type: "image",
+
+          image: {
+            link: "https://www.navnoor.co/assets/img3.jpeg"
           }
         }
+      ]
+    }
+  ]
+}
       },
 
       {
