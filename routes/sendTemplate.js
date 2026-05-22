@@ -30,7 +30,7 @@ router.get("/", async (req, res) => {
 
         template: {
 
-  name: "your_template_name",
+  name: "my_first_temp",
 
   language: {
     code: "en"
