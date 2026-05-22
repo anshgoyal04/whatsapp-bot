@@ -3,39 +3,65 @@ const axios = require("axios");
 
 const router = express.Router();
 
-router.post("/", async (req, res) => {
+router.get("/", async (req, res) => {
+
   try {
-    const { number } = req.body;
+
+    const number = req.query.number;
+
+    // CHECK NUMBER
+    if (!number) {
+
+      return res.send(
+        "Please provide WhatsApp number"
+      );
+    }
 
     const response = await axios.post(
+
       `https://graph.facebook.com/v19.0/${process.env.PHONE_NUMBER_ID}/messages`,
+
       {
         messaging_product: "whatsapp",
+
         to: number,
+
         type: "template",
+
         template: {
-          name: "welcome_template",
+
+          // CHANGE THIS
+          name: "my_first_temp",
+
           language: {
-            code: "en",
-          },
-        },
+            code: "en"
+          }
+        }
       },
+
       {
         headers: {
           Authorization: `Bearer ${process.env.TOKEN}`,
-          "Content-Type": "application/json",
-        },
+          "Content-Type": "application/json"
+        }
       }
     );
 
-    res.json(response.data);
+    console.log("Template sent");
+
+    console.log(response.data);
+
+    res.send("Template sent successfully");
 
   } catch (err) {
-    console.log(err.response?.data || err.message);
 
-    res.status(500).json({
-      error: err.message,
-    });
+    console.log(
+      err.response?.data || err.message
+    );
+
+    res.status(500).send(
+      "Error sending template"
+    );
   }
 });
 
