@@ -30,7 +30,7 @@ router.get("/", async (req, res) => {
 
         template: {
 
-  name: "my_first_temp",
+  name: "navnoor_lead_flow",
 
   language: {
     code: "en"
