@@ -36,21 +36,21 @@ router.get("/", async (req, res) => {
     code: "en"
   },
 
-  components: [
-    {
-      type: "header",
+//   components: [
+//     {
+//       type: "header",
 
-      parameters: [
-        {
-          type: "image",
+//       parameters: [
+//         {
+//           type: "image",
 
-          image: {
-            link: "https://www.navnoor.co/assets/img3.jpeg"
-          }
-        }
-      ]
-    }
-  ]
+//           image: {
+//             link: "https://www.navnoor.co/assets/img3.jpeg"
+//           }
+//         }
+//       ]
+//     }
+//   ]
 }
       },
 
