@@ -11,11 +11,12 @@ app.use(express.json());
 const webhookRoute = require("./routes/webhook");
 const sendMessageRoute = require("./routes/sendMessage");
 const sendTemplateRoute = require("./routes/sendTemplate");
-
+const flowWebhookRoute = require("./routes/flowWebhook");
 app.use("/webhook", webhookRoute);
 app.use("/send-message", sendMessageRoute);
 app.use("/send-template", sendTemplateRoute);
 app.use("/send-template-all", sendTemplateAllRoute);
+app.use("/flow-webhook", flowWebhookRoute);
 // HOME
 app.get("/", (req, res) => {
   res.send("WhatsApp Bot Running");
@@ -51,6 +52,26 @@ app.get("/messages", (req, res) => {
   );
 
   res.json(JSON.parse(data || "[]"));
+});
+app.get("/inquiries", (req, res) => {
+
+  const inquiriesPath = path.join(
+    __dirname,
+    "data/inquiries.json"
+  );
+
+  if (!fs.existsSync(inquiriesPath)) {
+    return res.json([]);
+  }
+
+  const data = fs.readFileSync(
+    inquiriesPath,
+    "utf8"
+  );
+
+  res.json(
+    JSON.parse(data || "[]")
+  );
 });
 const PORT = process.env.PORT || 3000;
 
