@@ -122,47 +122,80 @@ router.post("/", async (req, res) => {
         if (!user.welcomed) {
 
             reply =
-                "Welcome to Navnoor ✨\n\nHow can we help you today?\n\n1️⃣ Products\n2️⃣ Shipping\n3️⃣ Support";
-
+  "Welcome to Navnoor ✨\n\nWe’re delighted to have you here!\nExplore our premium collection crafted with quality and trust.\n\nPlease choose an option below to continue:\n\n1️⃣ Contact Us\n2️⃣ Product Catalog\n3️⃣ Order Now\n\nThank you for connecting with Navnoor ❤️";
             user.welcomed = true;
         }
 
         // OPTION 1
-        else if (
-            text === "1" &&
-            !user.selectedOptions.includes("1")
-        ) {
+        // else if (
+        //     text === "1" &&
+        //     !user.selectedOptions.includes("1")
+        // ) {
 
-            reply =
-                "Please visit our product catalog ✨";
+        //     reply =
+        //         "Please visit our product catalog ✨";
 
-            user.selectedOptions.push("1");
-        }
+        //     user.selectedOptions.push("1");
+        // }
 
-        // OPTION 2
-        else if (
-            text === "2" &&
-            !user.selectedOptions.includes("2")
-        ) {
+        // // OPTION 2
+        // else if (
+        //     text === "2" &&
+        //     !user.selectedOptions.includes("2")
+        // ) {
 
-            reply =
-                "Shipping usually takes 3-5 business days 🚚";
+        //     reply =
+        //         "Shipping usually takes 3-5 business days 🚚";
 
-            user.selectedOptions.push("2");
-        }
+        //     user.selectedOptions.push("2");
+        // }
 
-        // OPTION 3
-        else if (
-            text === "3" &&
-            !user.selectedOptions.includes("3")
-        ) {
+        // // OPTION 3
+        // else if (
+        //     text === "3" &&
+        //     !user.selectedOptions.includes("3")
+        // ) {
 
-            reply =
-                "Our support team will contact you shortly ❤️";
+        //     reply =
+        //         "Our support team will contact you shortly ❤️";
 
-            user.selectedOptions.push("3");
-        }
+        //     user.selectedOptions.push("3");
+        // }
+// CONTACT OPTION
+else if (
+  text === "1" &&
+  !user.selectedOptions.includes("1")
+) {
 
+  reply =
+    "📧 Contact Us\n\nEmail: navnoor.official@gmail.com\n\n🌐 Website:\nhttps://www.navnoor.co";
+
+  user.selectedOptions.push("1");
+}
+
+// CATALOG OPTION
+else if (
+  text === "2" &&
+  !user.selectedOptions.includes("2")
+) {
+
+  reply =
+    "📦 Product Catalog:\n\nhttps://www.navnoor.co/";
+
+  user.selectedOptions.push("2");
+}
+
+// ORDER OPTION
+else if (
+  text === "3" &&
+  !user.selectedOptions.includes("3")
+) {
+
+  reply =
+    "🛒 Order Now:\n\nhttps://tinyurl.com/Aloe-Face-cleanser";
+
+  user.selectedOptions.push("3");
+}
         // SAVE USERS
         fs.writeFileSync(
             usersFilePath,

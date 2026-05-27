@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const express = require("express");
 require("dotenv").config();
-
+const sendTemplateAllRoute = require("./routes/sendTemplateAll");
 const app = express();
 
 app.use(express.json());
@@ -15,7 +15,7 @@ const sendTemplateRoute = require("./routes/sendTemplate");
 app.use("/webhook", webhookRoute);
 app.use("/send-message", sendMessageRoute);
 app.use("/send-template", sendTemplateRoute);
-
+app.use("/send-template-all", sendTemplateAllRoute);
 // HOME
 app.get("/", (req, res) => {
   res.send("WhatsApp Bot Running");
